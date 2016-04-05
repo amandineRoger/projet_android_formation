@@ -41,13 +41,14 @@ public class GetListTask extends AsyncTask {
 
         URL url ;
         HttpURLConnection urlConnection = null;
+        String inputString = "";
 
         try {
             url = new URL("http://formation-android-esaip.herokuapp.com/messages/"+username+"/"+password);
             urlConnection = (HttpURLConnection) url.openConnection();
             InputStream in = new BufferedInputStream(urlConnection.getInputStream());
             InputStreamToString inputStreamToString = new InputStreamToString();
-            String inputString = inputStreamToString.convert(in);
+            inputString = inputStreamToString.convert(in);
             Log.d(TAG, "response = " + inputString);
             if (inputString.length() > 0) response=true;
 
@@ -59,16 +60,12 @@ public class GetListTask extends AsyncTask {
             urlConnection.disconnect();
         }
 
-        return null;
+        //return null;
+        return inputString;
 
     }
 
-    @Override
-    protected void onPostExecute(Object o) {
-        MenuActivity menuActivity = (MenuActivity) activity;
-        if (response) menuActivity.launchListeActivity();
 
-    }
 
 
 }

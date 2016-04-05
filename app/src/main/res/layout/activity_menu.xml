@@ -11,7 +11,7 @@
         android:layout_alignLeft="@+id/button_menu_envoyer"
         android:layout_alignStart="@+id/button_menu_envoyer"
         android:layout_marginTop="155dp"
-        android:onClick="listenerListeMessage"/>
+        android:onClick="launchListeActivity"/>
 
     <Button
         android:layout_width="150dp"

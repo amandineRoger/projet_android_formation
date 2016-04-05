@@ -3,18 +3,11 @@
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:padding="20dp">
 
-    <ScrollView
+    <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/scrollView"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" >
-
-        <ListView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/listView_message" />
-    </ScrollView>
+        android:id="@+id/listView_message"
+        android:layout_above="@+id/linearLayout" />
 
     <LinearLayout
         android:orientation="horizontal"
@@ -22,7 +15,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:id="@+id/linearLayout">
 
         <Button
             android:layout_width="match_parent"

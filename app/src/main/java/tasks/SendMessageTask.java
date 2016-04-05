@@ -3,6 +3,7 @@ package tasks;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.excilys.activities.EnvoiActivity;
 
@@ -12,6 +13,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 
 import util.InputStreamToString;
 
@@ -40,17 +42,29 @@ public class SendMessageTask extends AsyncTask {
         URL url ;
         HttpURLConnection urlConnection = null;
 
-        try {
-            url = new URL("http://formation-android-esaip.herokuapp.com/message/"+username+"/"+password+"/"+activity.getMessage());
-            urlConnection = (HttpURLConnection) url.openConnection();
-            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+        String message = activity.getMessage();
 
-        } catch (MalformedURLException e) {
-            Log.e(TAG, "malformed URL exception _ e = "+ e.getMessage() );
-        } catch (IOException e) {
-            Log.e(TAG, "IOException _ e = " + e.getMessage()+ "\n "+e.getCause().toString());
-        } finally {
-            urlConnection.disconnect();
+
+        Log.d("ENVOI", "message = "+message);
+
+        if (message.length() > 0) {
+
+            try {
+                message = URLEncoder.encode(message, "UTF-8");
+                message = message.replace("+", "%20");
+                url = new URL("http://formation-android-esaip.herokuapp.com/message/"+username+"/"+password+"/"+message);
+                urlConnection = (HttpURLConnection) url.openConnection();
+                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                response = true;
+
+            } catch (MalformedURLException e) {
+                Log.e(TAG, "malformed URL exception _ e = "+ e.getMessage() );
+            } catch (IOException e) {
+                Log.e(TAG, "IOException _ e = " + e.getMessage());
+            } finally {
+                urlConnection.disconnect();
+            }
+
         }
 
         return null;
@@ -60,7 +74,10 @@ public class SendMessageTask extends AsyncTask {
 
     @Override
     protected void onPostExecute(Object o) {
+       if (response) {
+           Toast.makeText(activity, "Message envoyé", Toast.LENGTH_SHORT).show();
 
+       }
 
     }
 

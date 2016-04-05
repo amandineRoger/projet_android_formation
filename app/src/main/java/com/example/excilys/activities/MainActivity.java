@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         usernameField = (EditText) findViewById(R.id.usernameField);
         passwordField = (EditText) findViewById(R.id.passwordField);
 
-        //enregistrement des identifiants
+        //recuperation des identifiants
         SharedPreferences settings = getSharedPreferences(SHARED_PREF_NAME,0);
         String username = settings.getString(USERNAME, null);
         String password = settings.getString(PWD, null);
