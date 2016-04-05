@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="75dp"
+        android:text="@string/bouton_label_listeMessage"
+        android:id="@+id/button_menu_liste"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/button_menu_envoyer"
+        android:layout_alignStart="@+id/button_menu_envoyer"
+        android:layout_marginTop="155dp" />
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="75dp"
+        android:text="@string/bouton_label_envoyerMessage"
+        android:id="@+id/button_menu_envoyer"
+        android:layout_below="@+id/button_menu_liste"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>
