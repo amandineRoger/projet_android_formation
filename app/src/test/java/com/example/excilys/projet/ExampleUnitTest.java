@@ -1,4 +1,4 @@
-package com.example.excilys.projet;
+package com.example.excilys.activities;
 
 import org.junit.Test;
 
