@@ -10,7 +10,8 @@
         android:layout_alignParentTop="true"
         android:layout_alignLeft="@+id/button_menu_envoyer"
         android:layout_alignStart="@+id/button_menu_envoyer"
-        android:layout_marginTop="155dp" />
+        android:layout_marginTop="155dp"
+        android:onClick="listenerListeMessage"/>
 
     <Button
         android:layout_width="150dp"
@@ -18,5 +19,6 @@
         android:text="@string/bouton_label_envoyerMessage"
         android:id="@+id/button_menu_envoyer"
         android:layout_below="@+id/button_menu_liste"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:onClick="listenerEnvoyerMessage"/>
 </RelativeLayout>

@@ -28,7 +28,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/bouton_label_rafraichir"
-            android:id="@+id/button_refresh" />
+            android:id="@+id/button_refresh"
+            android:onClick="listenerListeMessage"/>
     </LinearLayout>
 
 </RelativeLayout>

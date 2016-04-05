@@ -12,8 +12,8 @@ import tasks.ConnectTask;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
-    public static final String SHARED_PREF_NAME = "credentials";
 
+    public static final String SHARED_PREF_NAME = "credentials";
     public static final String USERNAME = "username";
     public static final String PWD = "password";
 
