@@ -53,10 +53,8 @@ public class ConnectTask extends AsyncTask{
         URL url ;
         HttpURLConnection urlConnection = null;
 
-        String urlText = "http://formation-android-esaip.herokuapp.com/connect/";
-
         try {
-            url = new URL(urlText+user+"/"+pwd);
+            url = new URL("http://formation-android-esaip.herokuapp.com/connect/"+user+"/"+pwd);
             urlConnection = (HttpURLConnection) url.openConnection();
             InputStream in = new BufferedInputStream(urlConnection.getInputStream());
             InputStreamToString inputStreamToString = new InputStreamToString();

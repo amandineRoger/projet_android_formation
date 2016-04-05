@@ -65,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void launchMenuActivity(){
         Intent intent = new Intent(this, MenuActivity.class);
-       // intent.putExtra(USERNAME, getUsername());
 
         SharedPreferences settings = getSharedPreferences(SHARED_PREF_NAME, 0);
         SharedPreferences.Editor editor = settings.edit();
