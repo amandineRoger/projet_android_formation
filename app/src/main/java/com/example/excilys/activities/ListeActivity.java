@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import tasks.GetListTask;
+import util.MessagesMapper;
 
 /**
  * Created by excilys on 05/04/16.
@@ -52,31 +53,15 @@ public class ListeActivity extends AppCompatActivity {
         try {
             //récupération des messages
             liste = (String) listTask.get();
+            Log.d("listenerListeMessage", "response = "+liste);
 
         } catch (Exception e) {
             Log.e("listenerListeMessage", e.getMessage());
         }
 
-        ArrayList<HashMap<String, String>> list = new ArrayList<>();
-
-        String[] elements;
-        HashMap<String, String> tmp;
-
-        //boucle d'extraction des messages depuis la réponse du serveur
-        for (String str : liste.split(";")) {
-            //séparation de l'expéditeur et du contenu
-            elements = str.split(":");
-            //si message bien formé, ajout à la liste
-            if (elements.length == 2) {
-                tmp = new HashMap<>();
-                tmp.put("nom", elements[0]);
-                tmp.put("message", elements[1]);
-                list.add(tmp);
-            }
-        }
 
         //Remplissage du listView
-        ListAdapter adapter = new SimpleAdapter(this, list, R.layout.list_element, new String[]{"nom", "message"}, new int[]{R.id.pseudo, R.id.textMessage});
+        ListAdapter adapter = new SimpleAdapter(this, MessagesMapper.messagesListToArrayList(liste), R.layout.list_element, new String[]{"nom", "message"}, new int[]{R.id.pseudo, R.id.textMessage});
         listView.setAdapter(adapter);
     }
 

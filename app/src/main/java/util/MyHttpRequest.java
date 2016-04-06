@@ -13,16 +13,19 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.PasswordAuthentication;
 import java.net.URL;
+import java.net.URLEncoder;
 
 /**
  * Created by excilys on 06/04/16.
  */
 public class MyHttpRequest {
-    private static final String URL = "https://training.loicortola.com/chat-rest/2.0/";
+    private static final String URL_CHAT = "https://training.loicortola.com/chat-rest/2.0";
     private static final String TAG = MyHttpRequest.class.getSimpleName();
 
     //Singleton
     private static MyHttpRequest instance;
+    private String username;
+    private String password;
     private MyHttpRequest() {}
 
 
@@ -44,7 +47,7 @@ public class MyHttpRequest {
 
         try {
             //Sending connect request
-            url = new URL(URL + "/connect");
+            url = new URL(URL_CHAT + "/connect");
             urlConnection = (HttpURLConnection) url.openConnection();
             InputStream in = new BufferedInputStream(urlConnection.getInputStream());
 
@@ -68,6 +71,8 @@ public class MyHttpRequest {
             String code_ok = "200";
             if (code_ok.equals(status)) {
                 success = true;
+                instance.username = username;
+                instance.password = password;
             }
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
@@ -78,6 +83,44 @@ public class MyHttpRequest {
         return success;
 
     }
+
+    /**
+     * Send the messagesList request
+     * @param limit maximum number of results
+     * @param offset result offset
+     * @return JSON Array response in String
+     */
+    public String getMessagesList(int limit, int offset){
+        URL url;
+        HttpURLConnection urlConnection = null;
+        String inputString = "";
+
+        try {
+            //Envoi de la requête pour récupérer la liste des messages
+            url = new URL(URL_CHAT+"/messages?limit="+limit+"&offset="+offset);
+            urlConnection = (HttpURLConnection) url.openConnection();
+            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+
+            //Conversion de la réponse en String
+            InputStreamToString inputStreamToString = new InputStreamToString();
+            inputString = inputStreamToString.convert(in);
+            Log.d("getMessagesList", "response = "+inputString);
+
+        } catch (MalformedURLException e) {
+            Log.e(TAG, "malformed URL exception _ e = " + e.getMessage());
+        } catch (IOException e) {
+            Log.e(TAG, "IOException _ e = " + e.getMessage() );
+        } finally {
+            urlConnection.disconnect();
+        }
+
+        return inputString;
+    }
+
+
+
+
+
 
 
 

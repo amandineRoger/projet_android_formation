@@ -15,6 +15,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import util.InputStreamToString;
+import util.MyHttpRequest;
 
 /**
  * Created by excilys on 05/04/16.
@@ -41,33 +42,7 @@ public class GetListTask extends AsyncTask {
 
     @Override
     protected Object doInBackground(Object[] params) {
-        URL url;
-        HttpURLConnection urlConnection = null;
-        String inputString = "";
-
-        try {
-            //Envoi de la requête pour récupérer la liste des messages
-            url = new URL("http://formation-android-esaip.herokuapp.com/messages/" + username + "/" + password);
-            urlConnection = (HttpURLConnection) url.openConnection();
-            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-
-            //Conversion de la réponse en String
-            InputStreamToString inputStreamToString = new InputStreamToString();
-            inputString = inputStreamToString.convert(in);
-
-            //Validation de la réponse
-            if (inputString.length() > 0) {
-                response = true;
-            }
-
-        } catch (MalformedURLException e) {
-            Log.e(TAG, "malformed URL exception _ e = " + e.getMessage());
-        } catch (IOException e) {
-            Log.e(TAG, "IOException _ e = " + e.getMessage() + "\n " + e.getCause().toString());
-        } finally {
-            urlConnection.disconnect();
-        }
-
-        return inputString;
+        MyHttpRequest request = MyHttpRequest.getInstance();
+         return request.getMessagesList(10,0);
     }
 }
