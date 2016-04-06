@@ -29,6 +29,12 @@ public class SendMessageTask extends AsyncTask {
     EnvoiActivity activity;
     Boolean response;
 
+    /**
+     * Constructeur de la tache
+     * @param username  nom d'utilisateur
+     * @param password  mot de passe
+     * @param activity EnvoiActivity
+     */
     public SendMessageTask(String username, String password, EnvoiActivity activity) {
         this.username = username;
         this.password = password;
@@ -42,18 +48,20 @@ public class SendMessageTask extends AsyncTask {
         URL url ;
         HttpURLConnection urlConnection = null;
 
+        //Récupération du message à envoyer
         String message = activity.getMessage();
 
-
-        Log.d("ENVOI", "message = "+message);
-
         if (message.length() > 0) {
-
             try {
+                //Encodage de l'URL
                 message = URLEncoder.encode(message, "UTF-8");
                 message = message.replace("+", "%20");
+
+                //Envoi de la requête
                 url = new URL("http://formation-android-esaip.herokuapp.com/message/"+username+"/"+password+"/"+message);
                 urlConnection = (HttpURLConnection) url.openConnection();
+
+                //Récupération de la réponse
                 InputStream in = new BufferedInputStream(urlConnection.getInputStream());
                 response = true;
 
@@ -64,11 +72,8 @@ public class SendMessageTask extends AsyncTask {
             } finally {
                 urlConnection.disconnect();
             }
-
         }
-
         return null;
-
     }
 
 
@@ -76,9 +81,7 @@ public class SendMessageTask extends AsyncTask {
     protected void onPostExecute(Object o) {
        if (response) {
            Toast.makeText(activity, "Message envoyé", Toast.LENGTH_SHORT).show();
-
        }
-
     }
 
 }

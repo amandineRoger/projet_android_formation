@@ -53,25 +53,39 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /* Listeners */
+
+    /**
+     * Vide les champs d'identifiants
+     * @param view
+     */
     public void listenerVider(View view) {
         usernameField.setText("");
         passwordField.setText("");
     }
 
+    /**
+     * Lance la tache asynchrone chargée de la connexion
+     * @param view
+     */
     public void listenerValider(View view){
         ConnectTask connectTask = new ConnectTask(this);
         connectTask.execute();
     }
 
+    /**
+     * Lance l'activité menu
+     */
     public void launchMenuActivity(){
         Intent intent = new Intent(this, MenuActivity.class);
 
+        //Enregistrement des identifiants
         SharedPreferences settings = getSharedPreferences(SHARED_PREF_NAME, 0);
         SharedPreferences.Editor editor = settings.edit();
         editor.putString(USERNAME, getUsername());
         editor.putString(PWD, getPassword());
         editor.commit();
 
+        //Lancement de l'activité
         startActivity(intent);
     }
 

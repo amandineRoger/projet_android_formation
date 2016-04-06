@@ -27,6 +27,10 @@ public class ConnectTask extends AsyncTask{
     Activity activity;
     Boolean response;
 
+    /**
+     * Constructeur de la tache
+     * @param activity : Main Activity contenant la progressBar
+     */
     public ConnectTask(Activity activity){
         this.activity = activity;
         response = false;
@@ -34,8 +38,8 @@ public class ConnectTask extends AsyncTask{
 
     @Override
     protected void onPreExecute() {
-        Log.i(TAG, "entré dans onPreExecute");
         super.onPreExecute();
+        //Affichage de la progressBar
         ProgressBar progressBar = (ProgressBar) activity.findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
     }
@@ -43,9 +47,7 @@ public class ConnectTask extends AsyncTask{
 
     @Override
     protected Object doInBackground(Object[] params) {
-
-        Log.i(TAG, "entré dans doInBackground");
-
+        //Récupération des identifiants
         MainActivity mainActivity = (MainActivity) activity;
         String user = mainActivity.getUsername();
         String pwd = mainActivity.getPassword();
@@ -54,13 +56,17 @@ public class ConnectTask extends AsyncTask{
         HttpURLConnection urlConnection = null;
 
         try {
+            //Envoi de la requête de connexion
             url = new URL("http://formation-android-esaip.herokuapp.com/connect/"+user+"/"+pwd);
             urlConnection = (HttpURLConnection) url.openConnection();
             InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+
+            //Conversion de la réponse en String
             InputStreamToString inputStreamToString = new InputStreamToString();
             String inputString = inputStreamToString.convert(in);
+
+            //Validation
             if (inputString.equals("true")) response = true;
-            Log.d(TAG,"response = "+ inputString);
         } catch (MalformedURLException e) {
             Log.e(TAG, "malformed URL exception _ e = "+ e.getMessage() );
         } catch (IOException e) {
@@ -76,14 +82,13 @@ public class ConnectTask extends AsyncTask{
     protected void onPostExecute(Object o) {
         super.onPostExecute(o);
 
+        //Masquage de la progressBar
         MainActivity mainActivity = (MainActivity) activity;
-
         ProgressBar progressBar = (ProgressBar) mainActivity.findViewById(R.id.progressBar);
         progressBar.setVisibility(View.INVISIBLE);
 
-        Log.d(TAG, "launch Intent !");
+        //Lancement de l'activité "Menu"
         if (response) mainActivity.launchMenuActivity();
-        Log.d(TAG, "Intent launched !");
     }
 
 

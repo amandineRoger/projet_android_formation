@@ -25,31 +25,36 @@ public class GetListTask extends AsyncTask {
 
     String username;
     String password;
-    Activity activity;
     Boolean response;
 
-
-    public GetListTask(String username, String password, Activity activity) {
+    /**
+     * Constructeur de la tache
+     * @param username  nom d'utilisateur
+     * @param password  mot de passe
+     */
+    public GetListTask(String username, String password) {
         this.username = username;
         this.password = password;
-        this.activity = activity;
         response = false;
     }
 
     @Override
     protected Object doInBackground(Object[] params) {
-
         URL url ;
         HttpURLConnection urlConnection = null;
         String inputString = "";
 
         try {
+            //Envoi de la requête pour récupérer la liste des messages
             url = new URL("http://formation-android-esaip.herokuapp.com/messages/"+username+"/"+password);
             urlConnection = (HttpURLConnection) url.openConnection();
             InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+
+            //Conversion de la réponse en String
             InputStreamToString inputStreamToString = new InputStreamToString();
             inputString = inputStreamToString.convert(in);
-            Log.d(TAG, "response = " + inputString);
+
+            //Validation de la réponse
             if (inputString.length() > 0) response=true;
 
         } catch (MalformedURLException e) {
@@ -60,12 +65,6 @@ public class GetListTask extends AsyncTask {
             urlConnection.disconnect();
         }
 
-        //return null;
         return inputString;
-
     }
-
-
-
-
 }

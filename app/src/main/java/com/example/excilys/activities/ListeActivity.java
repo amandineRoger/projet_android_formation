@@ -29,7 +29,7 @@ public class ListeActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_liste);
 
-
+        //Recupération des identifiants
         SharedPreferences settings = getSharedPreferences(MainActivity.SHARED_PREF_NAME, 0);
         username = settings.getString(MainActivity.USERNAME, null);
         password = settings.getString(MainActivity.PWD, null);
@@ -38,26 +38,34 @@ public class ListeActivity extends AppCompatActivity{
         listenerListeMessage(null);
     }
 
+    /**
+     * Lance la tache asynchrone chargée de récupérer la liste des messages et remplit la listView
+     * @param view
+     */
     public void listenerListeMessage(View view) {
-        GetListTask listTask = new GetListTask(username, password, this);
+        //lancement de la tâche
+        GetListTask listTask = new GetListTask(username, password);
         listTask.execute();
+
         String liste = "";
         try {
+            //récupération des messages
             liste = (String) listTask.get();
 
         } catch (Exception e) {
             Log.e("listenerListeMessage", e.getMessage());
         }
-        Log.d("listenerListeMessage", "response = " + liste);
 
         ArrayList<HashMap<String, String>> list = new ArrayList<>();
-
 
         String[] elements;
         HashMap<String, String> tmp;
 
+        //boucle d'extraction des messages depuis la réponse du serveur
         for (String str : liste.split(";")){
+            //séparation de l'expéditeur et du contenu
             elements = str.split(":");
+            //si message bien formé, ajout à la liste
             if (elements.length == 2) {
                 tmp = new HashMap<>();
                 tmp.put("nom", elements[0]);
@@ -66,6 +74,7 @@ public class ListeActivity extends AppCompatActivity{
             }
         }
 
+        //Remplissage du listView
         ListAdapter adapter = new SimpleAdapter(this, list, R.layout.list_element, new String[]{"nom", "message"}, new int[] {R.id.pseudo, R.id.textMessage});
         listView.setAdapter(adapter);
     }

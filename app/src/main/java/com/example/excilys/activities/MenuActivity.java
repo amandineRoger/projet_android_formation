@@ -19,16 +19,21 @@ public class MenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-
     }
 
-
+    /**
+     * Lance l'activité "Envoyer un message"
+     * @param view
+     */
     public void listenerEnvoyerMessage(View view) {
-
         Intent intent = new Intent(this, EnvoiActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * Lance l'activité "Liste des messages"
+     * @param view
+     */
     public void launchListeActivity(View view){
         Intent intent = new Intent(this, ListeActivity.class);
         startActivity(intent);
