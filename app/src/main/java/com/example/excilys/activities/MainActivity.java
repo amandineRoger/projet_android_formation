@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import tasks.ConnectTask;
 
@@ -68,11 +69,20 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      */
     public void listenerValider(View view){
-        ConnectTask connectTask = new ConnectTask(this);
-        connectTask.execute();
-    }
 
-    /**
+        String username = getUsername();
+        String password = getPassword();
+
+        TextView error = (TextView) findViewById(R.id.textView_error);
+
+        if ((username.length() > 0) && (password.length() > 0) ) {
+            error.setVisibility(View.INVISIBLE);
+            ConnectTask connectTask = new ConnectTask(this);
+            connectTask.execute();
+        } else {
+            error.setVisibility(View.VISIBLE);
+        }
+    }    /**
      * Lance l'activité menu
      */
     public void launchMenuActivity(){
