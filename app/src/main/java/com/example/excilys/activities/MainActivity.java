@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText usernameField;
     private EditText passwordField;
 
+    private static Boolean displayError = false;
 
 
     @Override
@@ -33,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         passwordField = (EditText) findViewById(R.id.passwordField);
 
         //recuperation des identifiants
-        SharedPreferences settings = getSharedPreferences(SHARED_PREF_NAME,0);
+        SharedPreferences settings = getSharedPreferences(SHARED_PREF_NAME, 0);
         String username = settings.getString(USERNAME, null);
         String password = settings.getString(PWD, null);
 
@@ -42,6 +44,16 @@ public class MainActivity extends AppCompatActivity {
             usernameField.setText(username);
             if (password != null) passwordField.setText(password);
         }
+
+        Log.d(TAG, "onCreate : display = " + displayError);
+
+
+        //Gestion message d'erreur (champs vides)
+        if (displayError) {
+            TextView error = (TextView) findViewById(R.id.textView_error);
+            error.setVisibility(View.VISIBLE);
+        }
+
     }
 
     /* Accesseurs */
@@ -77,9 +89,11 @@ public class MainActivity extends AppCompatActivity {
 
         if ((username.length() > 0) && (password.length() > 0) ) {
             error.setVisibility(View.INVISIBLE);
+            displayError = false;
             ConnectTask connectTask = new ConnectTask(this);
             connectTask.execute();
         } else {
+            displayError = true;
             error.setVisibility(View.VISIBLE);
         }
     }    /**
