@@ -22,20 +22,21 @@ public class EnvoiActivity extends AppCompatActivity {
         setContentView(R.layout.activity_envoyer);
     }
 
-    public String getMessage(){
+    public String getMessage() {
         return message;
     }
 
     /**
      * Récupère le contenu de la zone de texte editText_message et lance la tâche asynchrone chargée d'envoyer le message
+     *
      * @param view
      */
-    public void sendMessage(View view){
+    public void sendMessage(View view) {
 
         EditText editText = (EditText) findViewById(R.id.editText_message);
         message = editText.getText().toString();
 
-        SharedPreferences settings = getSharedPreferences(MainActivity.SHARED_PREF_NAME,0);
+        SharedPreferences settings = getSharedPreferences(MainActivity.SHARED_PREF_NAME, 0);
         String username = settings.getString(MainActivity.USERNAME, null);
         String password = settings.getString(MainActivity.PWD, null);
 

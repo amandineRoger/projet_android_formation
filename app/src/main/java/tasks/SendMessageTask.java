@@ -31,8 +31,9 @@ public class SendMessageTask extends AsyncTask {
 
     /**
      * Constructeur de la tache
-     * @param username  nom d'utilisateur
-     * @param password  mot de passe
+     *
+     * @param username nom d'utilisateur
+     * @param password mot de passe
      * @param activity EnvoiActivity
      */
     public SendMessageTask(String username, String password, EnvoiActivity activity) {
@@ -45,7 +46,7 @@ public class SendMessageTask extends AsyncTask {
 
     @Override
     protected Object doInBackground(Object[] params) {
-        URL url ;
+        URL url;
         HttpURLConnection urlConnection = null;
 
         //Récupération du message à envoyer
@@ -58,7 +59,7 @@ public class SendMessageTask extends AsyncTask {
                 message = message.replace("+", "%20");
 
                 //Envoi de la requête
-                url = new URL("http://formation-android-esaip.herokuapp.com/message/"+username+"/"+password+"/"+message);
+                url = new URL("http://formation-android-esaip.herokuapp.com/message/" + username + "/" + password + "/" + message);
                 urlConnection = (HttpURLConnection) url.openConnection();
 
                 //Récupération de la réponse
@@ -66,7 +67,7 @@ public class SendMessageTask extends AsyncTask {
                 response = true;
 
             } catch (MalformedURLException e) {
-                Log.e(TAG, "malformed URL exception _ e = "+ e.getMessage() );
+                Log.e(TAG, "malformed URL exception _ e = " + e.getMessage());
             } catch (IOException e) {
                 Log.e(TAG, "IOException _ e = " + e.getMessage());
             } finally {
@@ -79,9 +80,9 @@ public class SendMessageTask extends AsyncTask {
 
     @Override
     protected void onPostExecute(Object o) {
-       if (response) {
-           Toast.makeText(activity, "Message envoyé", Toast.LENGTH_SHORT).show();
-       }
+        if (response) {
+            Toast.makeText(activity, "Message envoyé", Toast.LENGTH_SHORT).show();
+        }
     }
 
 }

@@ -17,7 +17,7 @@ import tasks.GetListTask;
 /**
  * Created by excilys on 05/04/16.
  */
-public class ListeActivity extends AppCompatActivity{
+public class ListeActivity extends AppCompatActivity {
 
 
     String username;
@@ -40,6 +40,7 @@ public class ListeActivity extends AppCompatActivity{
 
     /**
      * Lance la tache asynchrone chargée de récupérer la liste des messages et remplit la listView
+     *
      * @param view
      */
     public void listenerListeMessage(View view) {
@@ -62,7 +63,7 @@ public class ListeActivity extends AppCompatActivity{
         HashMap<String, String> tmp;
 
         //boucle d'extraction des messages depuis la réponse du serveur
-        for (String str : liste.split(";")){
+        for (String str : liste.split(";")) {
             //séparation de l'expéditeur et du contenu
             elements = str.split(":");
             //si message bien formé, ajout à la liste
@@ -75,7 +76,7 @@ public class ListeActivity extends AppCompatActivity{
         }
 
         //Remplissage du listView
-        ListAdapter adapter = new SimpleAdapter(this, list, R.layout.list_element, new String[]{"nom", "message"}, new int[] {R.id.pseudo, R.id.textMessage});
+        ListAdapter adapter = new SimpleAdapter(this, list, R.layout.list_element, new String[]{"nom", "message"}, new int[]{R.id.pseudo, R.id.textMessage});
         listView.setAdapter(adapter);
     }
 

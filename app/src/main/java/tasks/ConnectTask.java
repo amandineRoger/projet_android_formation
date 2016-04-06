@@ -21,7 +21,7 @@ import util.InputStreamToString;
 /**
  * Created by excilys on 05/04/16.
  */
-public class ConnectTask extends AsyncTask{
+public class ConnectTask extends AsyncTask {
     private static final String TAG = ConnectTask.class.getSimpleName();
 
     Activity activity;
@@ -29,9 +29,10 @@ public class ConnectTask extends AsyncTask{
 
     /**
      * Constructeur de la tache
+     *
      * @param activity : Main Activity contenant la progressBar
      */
-    public ConnectTask(Activity activity){
+    public ConnectTask(Activity activity) {
         this.activity = activity;
         response = false;
     }
@@ -52,12 +53,12 @@ public class ConnectTask extends AsyncTask{
         String user = mainActivity.getUsername();
         String pwd = mainActivity.getPassword();
 
-        URL url ;
+        URL url;
         HttpURLConnection urlConnection = null;
 
         try {
             //Envoi de la requête de connexion
-            url = new URL("http://formation-android-esaip.herokuapp.com/connect/"+user+"/"+pwd);
+            url = new URL("http://formation-android-esaip.herokuapp.com/connect/" + user + "/" + pwd);
             urlConnection = (HttpURLConnection) url.openConnection();
             InputStream in = new BufferedInputStream(urlConnection.getInputStream());
 
@@ -68,9 +69,9 @@ public class ConnectTask extends AsyncTask{
             //Validation
             if (inputString.equals("true")) response = true;
         } catch (MalformedURLException e) {
-            Log.e(TAG, "malformed URL exception _ e = "+ e.getMessage() );
+            Log.e(TAG, "malformed URL exception _ e = " + e.getMessage());
         } catch (IOException e) {
-            Log.e(TAG, "IOException _ e = " + e.getMessage()+ "\n "+e.getCause().toString());
+            Log.e(TAG, "IOException _ e = " + e.getMessage() + "\n " + e.getCause().toString());
         } finally {
             urlConnection.disconnect();
         }
@@ -88,12 +89,10 @@ public class ConnectTask extends AsyncTask{
         progressBar.setVisibility(View.INVISIBLE);
 
         //Lancement de l'activité "Menu"
-        if (response) mainActivity.launchMenuActivity();
+        if (response) {
+            mainActivity.launchMenuActivity();
+        }
     }
-
-
-
-
 
 
 }

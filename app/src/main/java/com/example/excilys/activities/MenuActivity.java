@@ -23,6 +23,7 @@ public class MenuActivity extends AppCompatActivity {
 
     /**
      * Lance l'activité "Envoyer un message"
+     *
      * @param view
      */
     public void listenerEnvoyerMessage(View view) {
@@ -32,9 +33,10 @@ public class MenuActivity extends AppCompatActivity {
 
     /**
      * Lance l'activité "Liste des messages"
+     *
      * @param view
      */
-    public void launchListeActivity(View view){
+    public void launchListeActivity(View view) {
         Intent intent = new Intent(this, ListeActivity.class);
         startActivity(intent);
     }

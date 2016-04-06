@@ -13,14 +13,15 @@ public class InputStreamToString {
 
     /**
      * Convertit un inputStream en String
+     *
      * @param is inputStream (réponse de requête)
      * @return la réponse convertie en String
      */
-    public  String convert(InputStream is) {
+    public String convert(InputStream is) {
         String line = "";
         StringBuilder builder = new StringBuilder();
 
-        BufferedReader rd=new BufferedReader(new InputStreamReader(is));
+        BufferedReader rd = new BufferedReader(new InputStreamReader(is));
 
         try {
             while ((line = rd.readLine()) != null) {

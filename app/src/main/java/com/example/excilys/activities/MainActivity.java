@@ -57,11 +57,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /* Accesseurs */
-    public String getUsername(){
+    public String getUsername() {
         return usernameField.getText().toString();
     }
 
-    public String getPassword(){
+    public String getPassword() {
         return passwordField.getText().toString();
     }
 
@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Vide les champs d'identifiants
+     *
      * @param view
      */
     public void listenerVider(View view) {
@@ -78,16 +79,17 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Lance la tache asynchrone chargée de la connexion
+     *
      * @param view
      */
-    public void listenerValider(View view){
+    public void listenerValider(View view) {
 
         String username = getUsername();
         String password = getPassword();
 
         TextView error = (TextView) findViewById(R.id.textView_error);
 
-        if ((username.length() > 0) && (password.length() > 0) ) {
+        if ((username.length() > 0) && (password.length() > 0)) {
             error.setVisibility(View.INVISIBLE);
             displayError = false;
             ConnectTask connectTask = new ConnectTask(this);
@@ -96,10 +98,12 @@ public class MainActivity extends AppCompatActivity {
             displayError = true;
             error.setVisibility(View.VISIBLE);
         }
-    }    /**
+    }
+
+    /**
      * Lance l'activité menu
      */
-    public void launchMenuActivity(){
+    public void launchMenuActivity() {
         Intent intent = new Intent(this, MenuActivity.class);
 
         //Enregistrement des identifiants

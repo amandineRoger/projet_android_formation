@@ -29,8 +29,9 @@ public class GetListTask extends AsyncTask {
 
     /**
      * Constructeur de la tache
-     * @param username  nom d'utilisateur
-     * @param password  mot de passe
+     *
+     * @param username nom d'utilisateur
+     * @param password mot de passe
      */
     public GetListTask(String username, String password) {
         this.username = username;
@@ -40,13 +41,13 @@ public class GetListTask extends AsyncTask {
 
     @Override
     protected Object doInBackground(Object[] params) {
-        URL url ;
+        URL url;
         HttpURLConnection urlConnection = null;
         String inputString = "";
 
         try {
             //Envoi de la requête pour récupérer la liste des messages
-            url = new URL("http://formation-android-esaip.herokuapp.com/messages/"+username+"/"+password);
+            url = new URL("http://formation-android-esaip.herokuapp.com/messages/" + username + "/" + password);
             urlConnection = (HttpURLConnection) url.openConnection();
             InputStream in = new BufferedInputStream(urlConnection.getInputStream());
 
@@ -55,12 +56,14 @@ public class GetListTask extends AsyncTask {
             inputString = inputStreamToString.convert(in);
 
             //Validation de la réponse
-            if (inputString.length() > 0) response=true;
+            if (inputString.length() > 0) {
+                response = true;
+            }
 
         } catch (MalformedURLException e) {
-            Log.e(TAG, "malformed URL exception _ e = "+ e.getMessage() );
+            Log.e(TAG, "malformed URL exception _ e = " + e.getMessage());
         } catch (IOException e) {
-            Log.e(TAG, "IOException _ e = " + e.getMessage()+ "\n "+e.getCause().toString());
+            Log.e(TAG, "IOException _ e = " + e.getMessage() + "\n " + e.getCause().toString());
         } finally {
             urlConnection.disconnect();
         }
