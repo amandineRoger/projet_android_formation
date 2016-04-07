@@ -1,13 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:padding="20dp">
+    android:padding="20dp"
+    android:background="#ffffff">
 
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/listView_message"
-        android:layout_above="@+id/linearLayout" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="50dp"
+        android:background="#ffffff">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/button_prev"
+                android:src="@drawable/icon_previous"
+                android:background="#ffffff"
+                android:visibility="invisible"
+                android:onClick="listenerPreviousPage"
+                />
+
+            <TextView
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:id="@+id/textview_current_page"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:background="#ffffff"
+                android:textSize="@dimen/abc_text_size_large_material" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/button_next"
+                android:background="#ffffff"
+                android:src="@drawable/icon_next"
+                android:onClick="listenerNextPage"
+                />
+        </LinearLayout>
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/listView_message"
+            android:layout_above="@+id/linearLayout" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
@@ -23,7 +70,9 @@
             android:layout_height="wrap_content"
             android:text="@string/bouton_label_rafraichir"
             android:id="@+id/button_refresh"
-            android:onClick="listenerListeMessage"/>
+            android:onClick="refreshMessagesList"
+            android:background="#64fdd1" />
+
     </LinearLayout>
 
 </RelativeLayout>

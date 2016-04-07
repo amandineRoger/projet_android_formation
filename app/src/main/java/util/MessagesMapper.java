@@ -2,6 +2,8 @@ package util;
 
 import android.util.Log;
 
+import com.example.excilys.activities.ListeActivity;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,6 +29,11 @@ public class MessagesMapper {
         try{
             jsonArray = new JSONArray(messages);
             int arrayLength = jsonArray.length();
+            if (arrayLength < ListeActivity.LIMIT) {
+                ListeActivity.setLastPage(true);
+            } else {
+                ListeActivity.setLastPage(false);
+            }
 
             //boucle d'extraction des messages depuis la réponse JSON du serveur
             for (int i=0; i<arrayLength; i++){

@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.view.Menu;
 
+import com.example.excilys.activities.ListeActivity;
 import com.example.excilys.activities.MenuActivity;
 
 import java.io.BufferedInputStream;
@@ -23,6 +24,7 @@ import util.MyHttpRequest;
 public class GetListTask extends AsyncTask {
 
     private static final String TAG = GetListTask.class.getSimpleName();
+
 
     String username;
     String password;
@@ -43,6 +45,6 @@ public class GetListTask extends AsyncTask {
     @Override
     protected Object doInBackground(Object[] params) {
         MyHttpRequest request = MyHttpRequest.getInstance();
-         return request.getMessagesList(15,0);
+         return request.getMessagesList(ListeActivity.LIMIT,((int)params[0] - 1)*ListeActivity.LIMIT);
     }
 }
