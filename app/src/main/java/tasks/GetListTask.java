@@ -43,6 +43,6 @@ public class GetListTask extends AsyncTask {
     @Override
     protected Object doInBackground(Object[] params) {
         MyHttpRequest request = MyHttpRequest.getInstance();
-         return request.getMessagesList(10,0);
+         return request.getMessagesList(15,0);
     }
 }

@@ -6,8 +6,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStreamWriter;
 import java.net.Authenticator;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -118,6 +121,47 @@ public class MyHttpRequest {
     }
 
 
+    public Boolean sendMessage(String jsonMessage){
+        Boolean success = false;
+
+        URL url;
+        HttpURLConnection urlConnection = null;
+
+        DataOutputStream outputStream;
+        DataInputStream inputStream;
+
+        String inputString = "";
+
+        try {
+            url = new URL(URL_CHAT + "/messages");
+            urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestMethod("POST");
+
+            //Request building
+            urlConnection.setRequestProperty("Content-Type", "application/json");
+            urlConnection.setRequestProperty( "Accept", "*/*" );
+            urlConnection.setDoOutput(true);
+            OutputStreamWriter writer = new OutputStreamWriter(urlConnection.getOutputStream());
+            writer.write(jsonMessage);
+            writer.flush();
+            writer.close();
+
+            //response
+            InputStream in = new BufferedInputStream(urlConnection.getErrorStream());
+
+            //Conversion de la réponse en String
+            InputStreamToString inputStreamToString = new InputStreamToString();
+            inputString = inputStreamToString.convert(in);
+            Log.d("sendMessage", "response = "+inputString);
+
+        } catch (MalformedURLException e){
+            Log.e(TAG, "sendMessage :"+ e.getMessage());
+        } catch (IOException e){
+            Log.e(TAG, "sendMessage :"+ e.getMessage());
+        }
+
+        return success;
+    }
 
 
 

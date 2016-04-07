@@ -16,6 +16,8 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 import util.InputStreamToString;
+import util.MessagesMapper;
+import util.MyHttpRequest;
 
 /**
  * Created by excilys on 05/04/16.
@@ -46,33 +48,13 @@ public class SendMessageTask extends AsyncTask {
 
     @Override
     protected Object doInBackground(Object[] params) {
-        URL url;
-        HttpURLConnection urlConnection = null;
 
         //Récupération du message à envoyer
         String message = activity.getMessage();
 
         if (message.length() > 0) {
-            try {
-                //Encodage de l'URL
-                message = URLEncoder.encode(message, "UTF-8");
-                message = message.replace("+", "%20");
-
-                //Envoi de la requête
-                url = new URL("http://formation-android-esaip.herokuapp.com/message/" + username + "/" + password + "/" + message);
-                urlConnection = (HttpURLConnection) url.openConnection();
-
-                //Récupération de la réponse
-                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-                response = true;
-
-            } catch (MalformedURLException e) {
-                Log.e(TAG, "malformed URL exception _ e = " + e.getMessage());
-            } catch (IOException e) {
-                Log.e(TAG, "IOException _ e = " + e.getMessage());
-            } finally {
-                urlConnection.disconnect();
-            }
+            MyHttpRequest httpRequest = MyHttpRequest.getInstance();
+            httpRequest.sendMessage(MessagesMapper.messageToJSON(username, message));
         }
         return null;
     }
