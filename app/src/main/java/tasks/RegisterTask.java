@@ -16,13 +16,11 @@ public class RegisterTask extends AsyncTask {
     String password;
     Boolean response;
 
-    public RegisterTask(String username, String password){
+    public RegisterTask(String username, String password) {
         this.username = username;
         this.password = password;
         this.response = false;
-
     }
-
 
 
     @Override
@@ -34,8 +32,7 @@ public class RegisterTask extends AsyncTask {
     }
 
 
-
-    private String getJSONToRegister(final String username, final String password){
+    private String getJSONToRegister(final String username, final String password) {
         JSONObject jsonObject = new JSONObject();
 
         try {
@@ -43,14 +40,11 @@ public class RegisterTask extends AsyncTask {
             jsonObject.put("password", password);
 
         } catch (JSONException e) {
-            Log.e("RegisterTask", "getJSONToRegister : "+e.getMessage());
+            Log.e("RegisterTask", "getJSONToRegister : " + e.getMessage());
         }
 
         return jsonObject.toString();
     }
-
-
-
 
 
 }

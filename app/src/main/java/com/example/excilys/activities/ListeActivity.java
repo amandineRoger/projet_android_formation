@@ -43,14 +43,14 @@ public class ListeActivity extends AppCompatActivity {
         username = settings.getString(MainActivity.USERNAME, null);
         password = settings.getString(MainActivity.PWD, null);
         currentPage = 1;
-        lastPage =false;
+        lastPage = false;
 
         listView = (ListView) findViewById(R.id.listView_message);
         //listenerListeMessage(null);
         updateMessagesList();
     }
 
-    private void updateMessagesList(){
+    private void updateMessagesList() {
         GetListTask listTask = new GetListTask(username, password);
         listTask.execute(currentPage);
 
@@ -58,7 +58,7 @@ public class ListeActivity extends AppCompatActivity {
         try {
             //récupération des messages
             liste = (String) listTask.get();
-            Log.d("listenerListeMessage", "response = "+liste);
+            Log.d("listenerListeMessage", "response = " + liste);
 
         } catch (Exception e) {
             Log.e("listenerListeMessage", e.getMessage());
@@ -69,9 +69,6 @@ public class ListeActivity extends AppCompatActivity {
         ListAdapter adapter = new SimpleAdapter(this, MessagesMapper.messagesListToArrayList(liste), R.layout.list_element, new String[]{"nom", "message"}, new int[]{R.id.pseudo, R.id.textMessage});
         listView.setAdapter(adapter);
     }
-
-
-
 
 
     /**
@@ -88,7 +85,7 @@ public class ListeActivity extends AppCompatActivity {
         try {
             //récupération des messages
             liste = (String) listTask.get();
-            Log.d("listenerListeMessage", "response = "+liste);
+            Log.d("listenerListeMessage", "response = " + liste);
 
         } catch (Exception e) {
             Log.e("listenerListeMessage", e.getMessage());
@@ -100,24 +97,23 @@ public class ListeActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
     }
 
-    public void refreshMessagesList(View view){
+    public void refreshMessagesList(View view) {
         currentPage = 1;
         setCurrentPage(currentPage);
         updateMessagesList();
     }
 
 
-
-    public void listenerNextPage(View view){
-        setCurrentPage(currentPage+1);
+    public void listenerNextPage(View view) {
+        setCurrentPage(currentPage + 1);
     }
 
-    public void listenerPreviousPage(View view){
-        setCurrentPage(currentPage-1);
+    public void listenerPreviousPage(View view) {
+        setCurrentPage(currentPage - 1);
     }
 
 
-    private void setCurrentPage(int newPageNumber){
+    private void setCurrentPage(int newPageNumber) {
         TextView pageNumberTextView = (TextView) findViewById(R.id.textview_current_page);
         pageNumberTextView.setText(String.valueOf(newPageNumber));
         currentPage = newPageNumber;
@@ -125,8 +121,7 @@ public class ListeActivity extends AppCompatActivity {
         paginationButtonsManagement();
     }
 
-    private void paginationButtonsManagement(){
-        //TODO if last page set invisible button next; if first page set invisible button previous
+    private void paginationButtonsManagement() {
 
         ImageButton previous = (ImageButton) findViewById(R.id.button_prev);
         ImageButton next = (ImageButton) findViewById(R.id.button_next);
@@ -145,7 +140,7 @@ public class ListeActivity extends AppCompatActivity {
 
     }
 
-    public static void setLastPage(boolean isLastPage){
+    public static void setLastPage(boolean isLastPage) {
         lastPage = isLastPage;
     }
 

@@ -31,10 +31,12 @@ public class MyHttpRequest {
     private static MyHttpRequest instance;
     private String username;
     private String password;
-    private MyHttpRequest() {}
+
+    private MyHttpRequest() {
+    }
 
 
-    public static MyHttpRequest getInstance(){
+    public static MyHttpRequest getInstance() {
         if (instance == null) {
             instance = new MyHttpRequest();
         }
@@ -91,30 +93,31 @@ public class MyHttpRequest {
 
     /**
      * Send the messagesList request
-     * @param limit maximum number of results
+     *
+     * @param limit  maximum number of results
      * @param offset result offset
      * @return JSON Array response in String
      */
-    public String getMessagesList(int limit, int offset){
+    public String getMessagesList(int limit, int offset) {
         URL url;
         HttpURLConnection urlConnection = null;
         String inputString = "";
 
         try {
             //Envoi de la requête pour récupérer la liste des messages
-            url = new URL(URL_CHAT+"/messages?limit="+limit+"&offset="+offset);
+            url = new URL(URL_CHAT + "/messages?limit=" + limit + "&offset=" + offset);
             urlConnection = (HttpURLConnection) url.openConnection();
             InputStream in = new BufferedInputStream(urlConnection.getInputStream());
 
             //Conversion de la réponse en String
             InputStreamToString inputStreamToString = new InputStreamToString();
             inputString = inputStreamToString.convert(in);
-            Log.d("getMessagesList", "response = "+inputString);
+            Log.d("getMessagesList", "response = " + inputString);
 
         } catch (MalformedURLException e) {
             Log.e(TAG, "malformed URL exception _ e = " + e.getMessage());
         } catch (IOException e) {
-            Log.e(TAG, "IOException _ e = " + e.getMessage() );
+            Log.e(TAG, "IOException _ e = " + e.getMessage());
         } finally {
             urlConnection.disconnect();
         }
@@ -123,7 +126,7 @@ public class MyHttpRequest {
     }
 
 
-    public Boolean sendMessage(String jsonMessage){
+    public Boolean sendMessage(String jsonMessage) {
         Boolean success = false;
 
         URL url;
@@ -141,7 +144,7 @@ public class MyHttpRequest {
 
             //Request building
             urlConnection.setRequestProperty("Content-Type", "application/json");
-            urlConnection.setRequestProperty( "Accept", "*/*" );
+            urlConnection.setRequestProperty("Accept", "*/*");
             urlConnection.setDoOutput(true);
             OutputStreamWriter writer = new OutputStreamWriter(urlConnection.getOutputStream());
             writer.write(jsonMessage);
@@ -157,22 +160,18 @@ public class MyHttpRequest {
 
             Log.d(TAG, "sendMessage : response = " + inputString);
 
-//TODO traitement reponse
-
-
-        } catch (MalformedURLException e){
-            Log.e(TAG, "sendMessage :"+ e.getMessage());
-        } catch (IOException e){
-            Log.e(TAG, "sendMessage :"+ e.getMessage());
+        } catch (MalformedURLException e) {
+            Log.e(TAG, "sendMessage :" + e.getMessage());
+        } catch (IOException e) {
+            Log.e(TAG, "sendMessage :" + e.getMessage());
         }
 
         return success;
     }
 
 
-
-    public Boolean register(String jsonRequestBody)    {
-        Boolean success = false ;
+    public Boolean register(String jsonRequestBody) {
+        Boolean success = false;
 
         URL url;
         HttpURLConnection urlConnection = null;
@@ -189,7 +188,7 @@ public class MyHttpRequest {
 
             //Request building
             urlConnection.setRequestProperty("Content-Type", "application/json");
-            urlConnection.setRequestProperty( "Accept", "*/*" );
+            urlConnection.setRequestProperty("Accept", "*/*");
             urlConnection.setDoOutput(true);
             OutputStreamWriter writer = new OutputStreamWriter(urlConnection.getOutputStream());
             writer.write(jsonRequestBody);
@@ -202,7 +201,7 @@ public class MyHttpRequest {
             //Conversion de la réponse en String
             InputStreamToString inputStreamToString = new InputStreamToString();
             inputString = inputStreamToString.convert(in);
-            Log.d("register", "response = "+inputString);
+            Log.d("register", "response = " + inputString);
 
             //convert string to JSON
             JSONObject reader = null;
@@ -223,40 +222,34 @@ public class MyHttpRequest {
             }
 
 
-        } catch (MalformedURLException e){
-            Log.e(TAG, "register :"+ e.getMessage());
-        } catch (IOException e){
-            Log.e(TAG, "register :"+ e.getMessage());
+        } catch (MalformedURLException e) {
+            Log.e(TAG, "register :" + e.getMessage());
+        } catch (IOException e) {
+            Log.e(TAG, "register :" + e.getMessage());
         }
-
-
 
 
         return success;
     }
 
 
-
-
-
-
-
     static class BasicAuthenticator extends Authenticator {
         String baName;
         String baPassword;
+
         private BasicAuthenticator(String baName1, String baPassword1) {
             baName = baName1;
             baPassword = baPassword1;
         }
+
         @Override
         public PasswordAuthentication getPasswordAuthentication() {
             System.out.println("Authenticating...");
             return new PasswordAuthentication(baName, baPassword.toCharArray());
         }
-    };
+    }
 
-
-
+    ;
 
 
 }

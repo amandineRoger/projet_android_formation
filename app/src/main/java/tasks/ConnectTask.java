@@ -59,7 +59,7 @@ public class ConnectTask extends AsyncTask {
         MyHttpRequest request = MyHttpRequest.getInstance();
         response = request.connect(user, pwd);
 
-        Log.d(TAG, "response = "+response);
+        Log.d(TAG, "response = " + response);
 
         return null;
     }

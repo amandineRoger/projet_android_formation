@@ -98,11 +98,11 @@ public class MainActivity extends AppCompatActivity {
             connectTask.execute();
             try {
                 Boolean response = (Boolean) connectTask.get();
-                if(!response) {
+                if (!response) {
                     Toast.makeText(this, "Echec de la connexion ", Toast.LENGTH_SHORT).show();
                 }
             } catch (Exception e) {
-                Log.e(TAG, "listenerValider : "+e.getMessage());
+                Log.e(TAG, "listenerValider : " + e.getMessage());
             }
         } else {
             displayError = true;
@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void listenerRegister (View view){
+    public void listenerRegister(View view) {
         String username = getUsername();
         String password = getPassword();
 
@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
             try {
                 response = (Boolean) registerTask.get();
             } catch (Exception e) {
-                Log.e(TAG, "listenerRegister : "+e.getMessage());
+                Log.e(TAG, "listenerRegister : " + e.getMessage());
             }
 
             if (response) {

@@ -45,6 +45,6 @@ public class GetListTask extends AsyncTask {
     @Override
     protected Object doInBackground(Object[] params) {
         MyHttpRequest request = MyHttpRequest.getInstance();
-         return request.getMessagesList(ListeActivity.LIMIT,((int)params[0] - 1)*ListeActivity.LIMIT);
+        return request.getMessagesList(ListeActivity.LIMIT, ((int) params[0] - 1) * ListeActivity.LIMIT);
     }
 }

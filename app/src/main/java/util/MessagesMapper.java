@@ -17,7 +17,7 @@ import java.util.UUID;
  */
 public class MessagesMapper {
 
-    public static ArrayList<HashMap<String, String>> messagesListToArrayList (String messages) {
+    public static ArrayList<HashMap<String, String>> messagesListToArrayList(String messages) {
         ArrayList<HashMap<String, String>> list = new ArrayList<>();
 
         String[] elements;
@@ -26,7 +26,7 @@ public class MessagesMapper {
         JSONArray jsonArray;
         JSONObject jsonObject;
 
-        try{
+        try {
             jsonArray = new JSONArray(messages);
             int arrayLength = jsonArray.length();
             if (arrayLength < ListeActivity.LIMIT) {
@@ -36,7 +36,7 @@ public class MessagesMapper {
             }
 
             //boucle d'extraction des messages depuis la réponse JSON du serveur
-            for (int i=0; i<arrayLength; i++){
+            for (int i = 0; i < arrayLength; i++) {
                 jsonObject = jsonArray.getJSONObject(i);
                 tmp = new HashMap<>();
                 tmp.put("nom", jsonObject.getString("login"));
@@ -44,14 +44,14 @@ public class MessagesMapper {
                 list.add(0, tmp);
             }
 
-        } catch (JSONException e){
+        } catch (JSONException e) {
             Log.e("MessageMapper", e.getMessage());
         }
 
         return list;
     }
 
-    public static String messageToJSON (String username, String message){
+    public static String messageToJSON(String username, String message) {
         JSONObject jsonObject = new JSONObject();
 
         try {
