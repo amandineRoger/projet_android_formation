@@ -76,6 +76,8 @@ public class ConnectTask extends AsyncTask {
         //Lancement de l'activité "Menu"
         if (response) {
             mainActivity.launchMenuActivity();
+        } else {
+
         }
     }
 

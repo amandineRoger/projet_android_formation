@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Projet</string>
+    <string name="app_name">Chat\'cilys</string>
 
     <string name="bouton_label_vider">Vider</string>
     <string name="bouton_label_valider">Valider</string>
@@ -7,8 +7,10 @@
     <string name="bouton_label_envoyerMessage">Envoyer message</string>
     <string name="bouton_label_rafraichir">Rafraîchir</string>
     <string name="bouton_label_envoyer">Envoyer</string>
+    <string name="bouton_label_register">Inscription</string>
 
     <string name="label_username">Nom d\'utilisateur</string>
     <string name="label_password">Mot de passe</string>
 
+    <string name="bouton_label_logout">Déconnexion</string>
 </resources>

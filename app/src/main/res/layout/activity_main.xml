@@ -13,7 +13,8 @@
         android:id="@+id/usernameField"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp" />
+        android:layout_marginTop="100dp"
+        android:hint="@string/label_username" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -24,7 +25,8 @@
         android:layout_below="@+id/usernameField"
         android:layout_alignLeft="@+id/usernameField"
         android:layout_alignStart="@+id/usernameField"
-        android:layout_marginTop="61dp" />
+        android:layout_marginTop="61dp"
+        android:hint="@string/label_password" />
 
     <ProgressBar
         android:layout_width="wrap_content"
@@ -49,8 +51,8 @@
             android:layout_height="wrap_content"
             android:text="@string/bouton_label_vider"
             android:id="@+id/button_vider"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             android:onClick="listenerVider"/>
 
         <Button
@@ -58,9 +60,18 @@
             android:layout_height="wrap_content"
             android:text="@string/bouton_label_valider"
             android:id="@+id/button_valider"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             android:onClick="listenerValider"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bouton_label_register"
+            android:id="@+id/button_register"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:onClick="listenerRegister"/>
     </LinearLayout>
 
     <TextView

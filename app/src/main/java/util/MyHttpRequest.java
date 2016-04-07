@@ -18,6 +18,8 @@ import java.net.PasswordAuthentication;
 import java.net.URL;
 import java.net.URLEncoder;
 
+import tasks.ConnectTask;
+
 /**
  * Created by excilys on 06/04/16.
  */
@@ -152,13 +154,83 @@ public class MyHttpRequest {
             //Conversion de la réponse en String
             InputStreamToString inputStreamToString = new InputStreamToString();
             inputString = inputStreamToString.convert(in);
-            Log.d("sendMessage", "response = "+inputString);
+
+            Log.d(TAG, "sendMessage : response = " + inputString);
+
+//TODO traitement reponse
+
 
         } catch (MalformedURLException e){
             Log.e(TAG, "sendMessage :"+ e.getMessage());
         } catch (IOException e){
             Log.e(TAG, "sendMessage :"+ e.getMessage());
         }
+
+        return success;
+    }
+
+
+
+    public Boolean register(String jsonRequestBody)    {
+        Boolean success = false ;
+
+        URL url;
+        HttpURLConnection urlConnection = null;
+
+        DataOutputStream outputStream;
+        DataInputStream inputStream;
+
+        String inputString = "";
+
+        try {
+            url = new URL(URL_CHAT + "/register");
+            urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestMethod("POST");
+
+            //Request building
+            urlConnection.setRequestProperty("Content-Type", "application/json");
+            urlConnection.setRequestProperty( "Accept", "*/*" );
+            urlConnection.setDoOutput(true);
+            OutputStreamWriter writer = new OutputStreamWriter(urlConnection.getOutputStream());
+            writer.write(jsonRequestBody);
+            writer.flush();
+            writer.close();
+
+            //response
+            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+
+            //Conversion de la réponse en String
+            InputStreamToString inputStreamToString = new InputStreamToString();
+            inputString = inputStreamToString.convert(in);
+            Log.d("register", "response = "+inputString);
+
+            //convert string to JSON
+            JSONObject reader = null;
+            String status = null;
+
+            try {
+                reader = new JSONObject(inputString);
+                //get status code from JSON
+                status = reader.getString("status");
+            } catch (JSONException e) {
+                Log.e(TAG, e.getMessage());
+            }
+
+            //Validation
+            String code_ok = "200";
+            if (code_ok.equals(status)) {
+                success = true;
+            }
+
+
+        } catch (MalformedURLException e){
+            Log.e(TAG, "register :"+ e.getMessage());
+        } catch (IOException e){
+            Log.e(TAG, "register :"+ e.getMessage());
+        }
+
+
+
 
         return success;
     }

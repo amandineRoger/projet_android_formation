@@ -8,8 +8,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import tasks.ConnectTask;
+import tasks.RegisterTask;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -94,11 +96,52 @@ public class MainActivity extends AppCompatActivity {
             displayError = false;
             ConnectTask connectTask = new ConnectTask(this);
             connectTask.execute();
+            try {
+                Boolean response = (Boolean) connectTask.get();
+                if(!response) {
+                    Toast.makeText(this, "Echec de la connexion ", Toast.LENGTH_SHORT).show();
+                }
+            } catch (Exception e) {
+                Log.e(TAG, "listenerValider : "+e.getMessage());
+            }
         } else {
             displayError = true;
             error.setVisibility(View.VISIBLE);
         }
     }
+
+
+    public void listenerRegister (View view){
+        String username = getUsername();
+        String password = getPassword();
+
+        TextView error = (TextView) findViewById(R.id.textView_error);
+
+        if ((username.length() > 0) && (password.length() > 0)) {
+            error.setVisibility(View.INVISIBLE);
+            displayError = false;
+            RegisterTask registerTask = new RegisterTask(username, password);
+            registerTask.execute();
+
+            Boolean response = false;
+            try {
+                response = (Boolean) registerTask.get();
+            } catch (Exception e) {
+                Log.e(TAG, "listenerRegister : "+e.getMessage());
+            }
+
+            if (response) {
+                listenerValider(null);
+            } else {
+                Toast.makeText(this, "Echec de l'inscription", Toast.LENGTH_SHORT).show();
+            }
+
+        } else {
+            displayError = true;
+            error.setVisibility(View.VISIBLE);
+        }
+    }
+
 
     /**
      * Lance l'activité menu

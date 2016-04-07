@@ -50,7 +50,7 @@ public class MessagesMapper {
         try {
             //UUID field
             UUID uuid = UUID.randomUUID();
-            jsonObject.put("uuid", uuid+username);
+            jsonObject.put("uuid", uuid);
 
             //login field
             jsonObject.put("login", username);
