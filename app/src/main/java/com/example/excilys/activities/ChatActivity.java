@@ -1,5 +1,7 @@
 package com.example.excilys.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -59,7 +61,15 @@ public class ChatActivity extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.action_logout:
-                finish();
+
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+                alertDialogBuilder.setPositiveButton("Déconnexion", listener);
+                alertDialogBuilder.setNegativeButton("Annuler", listener);
+                alertDialogBuilder.setMessage("Attention, vous allez être déconnecté ! Continuer ?");
+
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+
                 return true;
             case R.id.action_refresh:
                 refreshMessagesList();
@@ -68,6 +78,19 @@ public class ChatActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            switch (which) {
+                case DialogInterface.BUTTON_POSITIVE:
+                    finish();
+                    break;
+                case DialogInterface.BUTTON_NEGATIVE:
+                    break;
+            }
+        }
+    };
 
     /*************************** Messages list ***************************/
 

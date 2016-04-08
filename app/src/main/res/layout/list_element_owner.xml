@@ -1,33 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:textAlignment="textEnd"
-    android:background="@drawable/bulleown"
-    android:paddingLeft="10dp"
-    android:paddingTop="7dp"
-    android:paddingRight="7dp"
-    android:paddingBottom="7dp">
+    android:layout_gravity="end">
 
 
-    <TextView
-        android:id="@+id/pseudo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#0217ff"
-        android:textStyle="bold"
-        android:textAlignment="viewEnd"
-        android:layout_marginRight="10dp" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:background="@drawable/bulleown"
+        android:paddingLeft="10dp"
+        android:paddingTop="7dp"
+        android:paddingRight="7dp"
+        android:paddingBottom="7dp"
+        >
 
-    <TextView
-        android:id="@+id/textMessage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@android:color/black"
-        android:layout_below="@+id/pseudo"
-        android:textAlignment="viewEnd"
-        android:layout_marginRight="10dp" />
+        <TextView
+            android:id="@+id/pseudo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#0217ff"
+            android:textStyle="bold"
+            android:textAlignment="textEnd"
+            android:layout_marginRight="10dp"
+            android:text="PSEUDO"
+            android:layout_gravity="right" />
+
+        <TextView
+            android:id="@+id/textMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:textColor="@android:color/black"
+            android:layout_below="@+id/pseudo"
+            android:layout_marginRight="10dp"
+            android:text="MESSAGE MESSAGE MESSAGE MESSAGE MESSAGE MESSAGE MESSAGE "
+            android:gravity="right"
+            android:layout_gravity="right"/>
+    </LinearLayout>
 
 
-</RelativeLayout>
+</LinearLayout>

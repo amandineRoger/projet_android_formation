@@ -12,7 +12,7 @@
         android:layout_alignParentTop="true"
         android:weightSum="1"
         android:id="@+id/linearLayout2"
-        android:layout_gravity="center_horizontal|bottom">
+        android:layout_gravity="bottom">
 
         <EditText
             android:layout_width="wrap_content"
@@ -27,6 +27,7 @@
             android:text="@string/bouton_label_envoyer"
             android:id="@+id/fragment_bouton"
             android:layout_weight="1"
-            android:onClick="sendMessage"/>
+            android:onClick="sendMessage"
+            android:layout_gravity="bottom" />
     </LinearLayout>
 </FrameLayout>
