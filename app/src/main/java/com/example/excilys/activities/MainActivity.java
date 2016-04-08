@@ -143,20 +143,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
     /**
-     * Lance l'activité menu
+     * Lance l'activité "Liste des messages"
      */
-    public void launchMenuActivity() {
-        Intent intent = new Intent(this, MenuActivity.class);
-
-        //Enregistrement des identifiants
-        SharedPreferences settings = getSharedPreferences(SHARED_PREF_NAME, 0);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putString(USERNAME, getUsername());
-        editor.putString(PWD, getPassword());
-        editor.commit();
-
-        //Lancement de l'activité
+    public void launchListeActivity() {
+        Intent intent = new Intent(this, ChatActivity.class);
         startActivity(intent);
     }
 

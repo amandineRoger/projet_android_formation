@@ -11,6 +11,7 @@
 
     <string name="label_username">Nom d\'utilisateur</string>
     <string name="label_password">Mot de passe</string>
+    <string name="label_message">Votre message</string>
 
     <string name="bouton_label_logout">Déconnexion</string>
 </resources>

@@ -8,8 +8,8 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="50dp"
-        android:background="#ffffff">
+        android:background="#ffffff"
+        android:layout_marginBottom="50dp">
 
         <LinearLayout
             android:orientation="horizontal"
@@ -50,29 +50,18 @@
 
         <ListView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:id="@+id/listView_message"
-            android:layout_above="@+id/linearLayout" />
+            android:layout_above="@+id/linearLayout"
+            android:layout_marginTop="10dp"
+            android:divider="@null"
+            android:dividerHeight="5dp"
+            />
 
     </LinearLayout>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:gravity="center_horizontal"
-        android:id="@+id/linearLayout">
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/bouton_label_rafraichir"
-            android:id="@+id/button_refresh"
-            android:onClick="refreshMessagesList"
-            android:background="#64fdd1" />
 
-    </LinearLayout>
+    <include layout="@layout/frag_envoyer"/>
 
 </RelativeLayout>

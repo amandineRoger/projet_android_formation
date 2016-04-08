@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-     v<item
+
+    <item
+        android:id="@+id/action_refresh"
+        android:icon="@drawable/icon_refresh"
+        android:title="@string/bouton_label_rafraichir"
+        app:showAsAction="ifRoom" />
+
+
+     <item
         android:id="@+id/action_logout"
         android:icon="@drawable/icon_power"
         android:title="@string/bouton_label_logout"
         app:showAsAction="ifRoom"/>
+
 </menu>

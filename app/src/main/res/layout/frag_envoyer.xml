@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.sendMessageFragment">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:weightSum="1"
+        android:id="@+id/linearLayout2"
+        android:layout_gravity="center_horizontal|bottom">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fragment_textEdit"
+            android:layout_weight="1"
+            android:hint="@string/label_message" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bouton_label_envoyer"
+            android:id="@+id/fragment_bouton"
+            android:layout_weight="1"
+            android:onClick="sendMessage"/>
+    </LinearLayout>
+</FrameLayout>

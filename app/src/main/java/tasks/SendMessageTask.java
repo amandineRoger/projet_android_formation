@@ -1,21 +1,10 @@
 package tasks;
 
-import android.app.Activity;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.widget.Toast;
 
-import com.example.excilys.activities.EnvoiActivity;
+import com.example.excilys.activities.ChatActivity;
 
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLEncoder;
-
-import util.InputStreamToString;
 import util.MessagesMapper;
 import util.MyHttpRequest;
 
@@ -28,7 +17,7 @@ public class SendMessageTask extends AsyncTask {
 
     String username;
     String password;
-    EnvoiActivity activity;
+    ChatActivity activity;
     Boolean response;
 
     /**
@@ -36,9 +25,9 @@ public class SendMessageTask extends AsyncTask {
      *
      * @param username nom d'utilisateur
      * @param password mot de passe
-     * @param activity EnvoiActivity
+     * @param activity ChatActivity
      */
-    public SendMessageTask(String username, String password, EnvoiActivity activity) {
+    public SendMessageTask(String username, String password, ChatActivity activity) {
         this.username = username;
         this.password = password;
         this.activity = activity;
@@ -64,6 +53,7 @@ public class SendMessageTask extends AsyncTask {
     protected void onPostExecute(Object o) {
         if (response) {
             Toast.makeText(activity, "Message envoyé", Toast.LENGTH_SHORT).show();
+
         }
     }
 

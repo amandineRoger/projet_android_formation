@@ -5,9 +5,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -17,27 +21,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import tasks.GetListTask;
+import tasks.SendMessageTask;
 import util.MessagesMapper;
 
 /**
- * Created by excilys on 05/04/16.
+ * Created by excilys on 08/04/16.
  */
-public class ListeActivity extends AppCompatActivity {
-
-    public static final int LIMIT = 10;
-
-
-    String username;
-    String password;
-    ListView listView;
-    int currentPage;
-    private static boolean lastPage;
+public class ChatActivity extends AppCompatActivity {
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_liste);
+
         //Recupération des identifiants
         SharedPreferences settings = getSharedPreferences(MainActivity.SHARED_PREF_NAME, 0);
         username = settings.getString(MainActivity.USERNAME, null);
@@ -46,9 +43,42 @@ public class ListeActivity extends AppCompatActivity {
         lastPage = false;
 
         listView = (ListView) findViewById(R.id.listView_message);
-        //listenerListeMessage(null);
         updateMessagesList();
     }
+
+    /*************************** AppBar **************************************/
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.actionbar_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.action_logout:
+                finish();
+                return true;
+            case R.id.action_refresh:
+                refreshMessagesList();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    /*************************** Messages list ***************************/
+
+    public static final int LIMIT = 8;
+    private static boolean lastPage;
+
+    private String username;
+    private String password;
+    private ListView listView;
+    private int currentPage;
+
 
     private void updateMessagesList() {
         GetListTask listTask = new GetListTask(username, password);
@@ -69,34 +99,7 @@ public class ListeActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
     }
 
-
-    /**
-     * Lance la tache asynchrone chargée de récupérer la liste des messages et remplit la listView
-     *
-     * @param view
-     */
-    public void listenerListeMessage(View view) {
-        //lancement de la tâche
-        GetListTask listTask = new GetListTask(username, password);
-        listTask.execute();
-
-        String liste = "";
-        try {
-            //récupération des messages
-            liste = (String) listTask.get();
-            Log.d("listenerListeMessage", "response = " + liste);
-
-        } catch (Exception e) {
-            Log.e("listenerListeMessage", e.getMessage());
-        }
-
-
-        //Remplissage du listView
-        ListAdapter adapter = new MyListAdapter(MessagesMapper.messagesListToArrayList(liste));
-        listView.setAdapter(adapter);
-    }
-
-    public void refreshMessagesList(View view) {
+    public void refreshMessagesList() {
         currentPage = 1;
         setCurrentPage(currentPage);
         updateMessagesList();
@@ -111,7 +114,6 @@ public class ListeActivity extends AppCompatActivity {
         setCurrentPage(currentPage - 1);
     }
 
-
     private void setCurrentPage(int newPageNumber) {
         TextView pageNumberTextView = (TextView) findViewById(R.id.textview_current_page);
         pageNumberTextView.setText(String.valueOf(newPageNumber));
@@ -121,7 +123,6 @@ public class ListeActivity extends AppCompatActivity {
     }
 
     private void paginationButtonsManagement() {
-
         ImageButton previous = (ImageButton) findViewById(R.id.button_prev);
         ImageButton next = (ImageButton) findViewById(R.id.button_next);
 
@@ -136,13 +137,47 @@ public class ListeActivity extends AppCompatActivity {
         } else {
             next.setVisibility(View.VISIBLE);
         }
-
     }
 
     public static void setLastPage(boolean isLastPage) {
         lastPage = isLastPage;
     }
 
+
+    /**************************** Message sending ****************************/
+
+    private String message;
+
+    public String getMessage() {
+        return message;
+    }
+
+    /**
+     * Récupère le contenu de la zone de texte editText_message et lance la tâche asynchrone chargée d'envoyer le message
+     *
+     * @param view
+     */
+    public void sendMessage(View view) {
+
+        EditText editText = (EditText) findViewById(R.id.fragment_textEdit);
+        message = editText.getText().toString();
+
+        SharedPreferences settings = getSharedPreferences(MainActivity.SHARED_PREF_NAME, 0);
+        String username = settings.getString(MainActivity.USERNAME, null);
+        String password = settings.getString(MainActivity.PWD, null);
+
+        SendMessageTask messageTask = new SendMessageTask(username, password, this);
+        messageTask.execute();
+        eraseCurrentMessage();
+        refreshMessagesList();
+    }
+
+    public void eraseCurrentMessage(){
+        EditText editText = (EditText) findViewById(R.id.fragment_textEdit);
+        editText.setText("");
+    }
+
+    /*************************** List adapter ***************************/
 
     class MyListAdapter extends BaseAdapter {
 
@@ -176,8 +211,6 @@ public class ListeActivity extends AppCompatActivity {
 
             String login = messages.get(position).get("nom");
 
-
-
             if (username.equals(login)){
                 ressource = R.layout.list_element_owner;
                 login = "Vous";
@@ -198,6 +231,11 @@ public class ListeActivity extends AppCompatActivity {
             return (row);
         }
     }
+
+
+
+
+
 
 
 

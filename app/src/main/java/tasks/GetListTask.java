@@ -1,21 +1,8 @@
 package tasks;
 
-import android.app.Activity;
+
 import android.os.AsyncTask;
-import android.util.Log;
-import android.view.Menu;
-
-import com.example.excilys.activities.ListeActivity;
-import com.example.excilys.activities.MenuActivity;
-
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-
-import util.InputStreamToString;
+import com.example.excilys.activities.ChatActivity;
 import util.MyHttpRequest;
 
 /**
@@ -45,6 +32,6 @@ public class GetListTask extends AsyncTask {
     @Override
     protected Object doInBackground(Object[] params) {
         MyHttpRequest request = MyHttpRequest.getInstance();
-        return request.getMessagesList(ListeActivity.LIMIT, ((int) params[0] - 1) * ListeActivity.LIMIT);
+        return request.getMessagesList(ChatActivity.LIMIT, ((int) params[0] - 1) * ChatActivity.LIMIT);
     }
 }

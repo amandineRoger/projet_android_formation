@@ -73,11 +73,11 @@ public class ConnectTask extends AsyncTask {
         ProgressBar progressBar = (ProgressBar) mainActivity.findViewById(R.id.progressBar);
         progressBar.setVisibility(View.INVISIBLE);
 
-        //Lancement de l'activité "Menu"
+        //Lancement de l'activité "Liste"
         if (response) {
-            mainActivity.launchMenuActivity();
+            mainActivity.launchListeActivity();
         } else {
-
+            //TODO
         }
     }
 

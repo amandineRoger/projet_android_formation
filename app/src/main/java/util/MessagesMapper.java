@@ -2,7 +2,7 @@ package util;
 
 import android.util.Log;
 
-import com.example.excilys.activities.ListeActivity;
+import com.example.excilys.activities.ChatActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,10 +29,10 @@ public class MessagesMapper {
         try {
             jsonArray = new JSONArray(messages);
             int arrayLength = jsonArray.length();
-            if (arrayLength < ListeActivity.LIMIT) {
-                ListeActivity.setLastPage(true);
+            if (arrayLength < ChatActivity.LIMIT) {
+                ChatActivity.setLastPage(true);
             } else {
-                ListeActivity.setLastPage(false);
+                ChatActivity.setLastPage(false);
             }
 
             //boucle d'extraction des messages depuis la réponse JSON du serveur
@@ -41,7 +41,7 @@ public class MessagesMapper {
                 tmp = new HashMap<>();
                 tmp.put("nom", jsonObject.getString("login"));
                 tmp.put("message", jsonObject.getString("message"));
-                list.add(0, tmp);
+                list.add(tmp);
             }
 
         } catch (JSONException e) {

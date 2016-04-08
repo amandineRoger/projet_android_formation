@@ -20,13 +20,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".MenuActivity"></activity>
-
-        <activity android:name=".ListeActivity"></activity>
-
-        <activity android:name=".EnvoiActivity"></activity>
-
-
+        <activity android:name=".ChatActivity"
+            android:windowSoftInputMode="adjustPan"
+            ></activity>
     </application>
 
 </manifest>
