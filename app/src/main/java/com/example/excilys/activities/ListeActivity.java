@@ -1,15 +1,16 @@
 package com.example.excilys.activities;
 
 import android.content.SharedPreferences;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -37,7 +38,6 @@ public class ListeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_liste);
-
         //Recupération des identifiants
         SharedPreferences settings = getSharedPreferences(MainActivity.SHARED_PREF_NAME, 0);
         username = settings.getString(MainActivity.USERNAME, null);
@@ -64,9 +64,8 @@ public class ListeActivity extends AppCompatActivity {
             Log.e("listenerListeMessage", e.getMessage());
         }
 
-
         //Remplissage du listView
-        ListAdapter adapter = new SimpleAdapter(this, MessagesMapper.messagesListToArrayList(liste), R.layout.list_element, new String[]{"nom", "message"}, new int[]{R.id.pseudo, R.id.textMessage});
+        ListAdapter adapter = new MyListAdapter(MessagesMapper.messagesListToArrayList(liste));
         listView.setAdapter(adapter);
     }
 
@@ -93,7 +92,7 @@ public class ListeActivity extends AppCompatActivity {
 
 
         //Remplissage du listView
-        ListAdapter adapter = new SimpleAdapter(this, MessagesMapper.messagesListToArrayList(liste), R.layout.list_element, new String[]{"nom", "message"}, new int[]{R.id.pseudo, R.id.textMessage});
+        ListAdapter adapter = new MyListAdapter(MessagesMapper.messagesListToArrayList(liste));
         listView.setAdapter(adapter);
     }
 
@@ -143,6 +142,63 @@ public class ListeActivity extends AppCompatActivity {
     public static void setLastPage(boolean isLastPage) {
         lastPage = isLastPage;
     }
+
+
+    class MyListAdapter extends BaseAdapter {
+
+        private ArrayList<HashMap<String, String>> messages;
+
+        public MyListAdapter(ArrayList<HashMap<String, String>> list){
+            this.messages = list;
+            Log.d("MyListAdapter", "constructeur !");
+        }
+
+
+        @Override
+        public int getCount() {
+            return messages.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+
+            int ressource;
+
+            String login = messages.get(position).get("nom");
+
+
+
+            if (username.equals(login)){
+                ressource = R.layout.list_element_owner;
+                login = "Vous";
+            } else {
+                ressource = R.layout.list_element;
+            }
+
+            LayoutInflater inflater = getLayoutInflater();
+
+            View row = inflater.inflate(ressource, parent, false);
+
+            TextView loginTextView = (TextView) row.findViewById(R.id.pseudo);
+            TextView messageTextView = (TextView) row.findViewById(R.id.textMessage);
+
+            loginTextView.setText(login);
+            messageTextView.setText(messages.get(position).get("message"));
+
+            return (row);
+        }
+    }
+
 
 
 }
